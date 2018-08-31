@@ -1,15 +1,36 @@
-from django.http import JsonResponse
 from django.shortcuts import render
-from .forms import Student
+from .forms import StudentForm, TeacherForm
+from django.http import HttpResponseRedirect
+from django.views import View
 
 
-def my_index_view(request):
-    if request.method == "POST":
-        form = Student(request.POST)
+class StudentView(View):
+    form_class = StudentForm
+    template_name = 'university/index.html'
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
         if form.is_valid():
-            print(form.data)
-            return JsonResponse({"message": "Form was processed"})
-        data = {'form': form}
-    else:
-        data = {'form': Student()}
-    return render(request, 'university/index.html', data)
+            return HttpResponseRedirect('/success/')
+
+        return render(request, self.template_name, {'form': form})
+
+class TeacherView(View):
+    form_class = TeacherForm
+    template_name = 'university/index.html'
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('/success/')
+
+        return render(request, self.template_name, {'form': form})
+
