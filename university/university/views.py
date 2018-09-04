@@ -15,6 +15,7 @@ class StudentView(View):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
+            form.save()
             return HttpResponseRedirect('/success/')
 
         return render(request, self.template_name, {'form': form})
@@ -30,6 +31,7 @@ class TeacherView(View):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
+            form.save()
             return HttpResponseRedirect('/success/')
 
         return render(request, self.template_name, {'form': form})
