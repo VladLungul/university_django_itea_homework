@@ -2,7 +2,8 @@ from django.shortcuts import render
 from .forms import StudentForm, TeacherForm
 from django.http import HttpResponseRedirect
 from django.views import View
-
+from django.contrib import messages
+from django.contrib.messages import get_messages
 
 class StudentView(View):
     form_class = StudentForm
@@ -16,9 +17,11 @@ class StudentView(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/success/')
+            messages.add_message(request, messages.INFO, 'Student adding success')
+            #return HttpResponseRedirect('/success/')
 
         return render(request, self.template_name, {'form': form})
+
 
 class TeacherView(View):
     form_class = TeacherForm
@@ -32,7 +35,11 @@ class TeacherView(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
+            messages = get_messages(request)
+            for m in messages:
+                print(m)
             return HttpResponseRedirect('/success/')
 
         return render(request, self.template_name, {'form': form})
+
 
