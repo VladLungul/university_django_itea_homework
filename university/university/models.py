@@ -1,7 +1,8 @@
 from django.db import models
-from django.core.validators import MaxValueValidator, RegexValidator
-from .validators import phone_validation
-from django.core.exceptions import ValidationError
+from django.core.validators import MaxValueValidator
+import logging
+
+logger = logging.getLogger(__name__)
 
 class Teacher(models.Model):
     first_name = models.CharField(max_length=30)
