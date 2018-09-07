@@ -7,9 +7,12 @@
 {% if messages %}
 <ul class="messages">
  {% for message in messages %}
- <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+ <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
  {% endfor %}
 </ul>
 {% endif %}
-
+{% load example_filters %}
+{{ somevariable|cut:"0" }}
+{% load example_tag %}
+{% get_result_tag “a” “b” as r %} This is {{ r }} {% endget_result_tag %}
 {% endblock %}

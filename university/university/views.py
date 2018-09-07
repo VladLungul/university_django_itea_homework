@@ -38,7 +38,7 @@ class TeacherView(View):
             messages = get_messages(request)
             for m in messages:
                 print(m)
-            return HttpResponseRedirect('/success/')
+            messages.add_message(request, messages.INFO, 'Teacher adding success')
 
         return render(request, self.template_name, {'form': form})
 
