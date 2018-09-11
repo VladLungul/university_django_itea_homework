@@ -23,8 +23,8 @@ class StudentView(View):
         if form.is_valid():
             form.save()
             logger.info("Students info is right")
-            messages = get_messages(request)
-            for m in messages:
+            messagess = get_messages(request)
+            for m in messagess:
                 print(m)
             messages.add_message(request, messages.INFO, 'Student adding success')
 

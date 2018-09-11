@@ -18,7 +18,7 @@ class Person(models.Model):
         return is_match
 
     first_name_valid = re.compile(r'^[A-z]+\ ?[A-z]?$')
-    phone_valid = re.compile(r'\+380\d{9}')
+    phone_valid = re.compile(r'^\+380\d{9}$')
     last_name_valid = re.compile(r'^[A-z]+\-?[A-z]?$')
 
 
